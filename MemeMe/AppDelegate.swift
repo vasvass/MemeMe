@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MemeMe
+//  MemeMe 
 //
 //  Created by Vassileios Vassileiades on 4/3/20.
 //  Copyright © 2020 Vassileios Vassileiades. All rights reserved.
