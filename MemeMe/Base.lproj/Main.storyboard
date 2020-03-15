@@ -15,37 +15,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="287" translatesAutoresizingMaskIntoConstraints="NO" id="l6c-84-vjr">
-                                <rect key="frame" x="64" y="253" width="286" height="355"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KbV-20-5O9" userLabel="Top Text Field">
-                                        <rect key="frame" x="0.0" y="0.0" width="286" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="286" id="XXE-XK-0cD"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                        <connections>
-                                            <action selector="bottomTextField:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="IhX-f1-Lxj"/>
-                                        </connections>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Gl3-L7-cAt" userLabel="Bottom Text Field">
-                                        <rect key="frame" x="0.0" y="321" width="286" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="286" id="z0H-K6-hmP"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                                        <connections>
-                                            <action selector="topTextField:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="c5k-dp-Lcx"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                            </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-iQ-kSI">
+                                <rect key="frame" x="6" y="81" width="408" height="731"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVs-rn-lAQ" userLabel="Top Toolbar">
                                 <rect key="frame" x="0.0" y="37" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="53O-ha-JKr"/>
+                                    <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="53O-ha-JKr" userLabel="Share Button Item"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="B68-FN-KbV"/>
+                                    <barButtonItem style="plain" id="Sgb-sT-rvQ">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6qu-oE-dVJ">
+                                            <rect key="frame" x="346" y="7" width="48" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Cancel"/>
+                                            <connections>
+                                                <action selector="cancelEditing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TEG-9o-kru"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMa-fl-gGY" userLabel="Bottom Toolbar">
@@ -54,17 +42,17 @@
                                     <constraint firstAttribute="height" constant="44" id="cb5-Bw-hEj"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Pick" id="3Y3-le-g8C">
+                                    <barButtonItem title="Album" id="3Y3-le-g8C">
                                         <connections>
                                             <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="jRn-yC-1S0"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="eHu-8P-NXg"/>
                                     <barButtonItem image="camera" catalog="system" style="plain" id="FxJ-FM-faC">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tem-8h-XfN">
-                                            <rect key="frame" x="348" y="7" width="46" height="30"/>
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tem-8h-XfN">
+                                            <rect key="frame" x="316" y="11" width="78" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="camera" catalog="system"/>
                                             <connections>
                                                 <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rgn-th-bec"/>
                                             </connections>
@@ -75,44 +63,64 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCG-iQ-kSI">
-                                <rect key="frame" x="0.0" y="44" width="414" height="774"/>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
-                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Gl3-L7-cAt" userLabel="Top Text Field">
+                                <rect key="frame" x="67" y="139" width="286" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="286" id="RNr-lO-87E"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="KbV-20-5O9" userLabel="Bottom Text Field">
+                                <rect key="frame" x="67" y="724" width="286" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="286" id="XXE-XK-0cD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nMa-fl-gGY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="00A-j3-Jg6"/>
+                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="6" id="0D1-tv-Lck"/>
                             <constraint firstItem="OVs-rn-lAQ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-7" id="0aF-yV-1L3"/>
                             <constraint firstItem="nMa-fl-gGY" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="7EZ-MK-Zrq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gCG-iQ-kSI" secondAttribute="trailing" id="9bX-NH-pMX"/>
-                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9cf-Ku-Egh"/>
-                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="A0d-wp-yqr"/>
-                            <constraint firstItem="l6c-84-vjr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="253" id="BTV-NI-Lzn"/>
-                            <constraint firstItem="nMa-fl-gGY" firstAttribute="centerX" secondItem="l6c-84-vjr" secondAttribute="centerX" id="CwG-hr-bMT"/>
-                            <constraint firstItem="l6c-84-vjr" firstAttribute="centerX" secondItem="OVs-rn-lAQ" secondAttribute="centerX" id="HyG-Oq-W4H"/>
-                            <constraint firstItem="nMa-fl-gGY" firstAttribute="trailing" secondItem="gCG-iQ-kSI" secondAttribute="trailing" id="JiY-gZ-9tS"/>
-                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LAK-wc-rDq"/>
-                            <constraint firstItem="nMa-fl-gGY" firstAttribute="top" secondItem="gCG-iQ-kSI" secondAttribute="bottom" id="Sm2-sS-EMR"/>
-                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fT7-UH-Ohx"/>
-                            <constraint firstItem="OVs-rn-lAQ" firstAttribute="leading" secondItem="gCG-iQ-kSI" secondAttribute="leading" id="q9l-3H-ZOr"/>
+                            <constraint firstItem="Gl3-L7-cAt" firstAttribute="top" secondItem="OVs-rn-lAQ" secondAttribute="bottom" constant="58" id="B4E-Ke-rEw"/>
+                            <constraint firstItem="Gl3-L7-cAt" firstAttribute="height" secondItem="KbV-20-5O9" secondAttribute="height" id="Fua-LZ-Dgz"/>
+                            <constraint firstItem="Gl3-L7-cAt" firstAttribute="width" secondItem="KbV-20-5O9" secondAttribute="width" id="Le2-cW-bKE"/>
+                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="centerX" secondItem="KbV-20-5O9" secondAttribute="centerX" id="NUm-nX-2LQ"/>
+                            <constraint firstItem="gCG-iQ-kSI" firstAttribute="top" secondItem="OVs-rn-lAQ" secondAttribute="bottom" id="Nm0-o7-XMF"/>
+                            <constraint firstItem="KbV-20-5O9" firstAttribute="leading" secondItem="Gl3-L7-cAt" secondAttribute="trailing" constant="-286" id="Sfn-Zs-9d4"/>
+                            <constraint firstItem="OVs-rn-lAQ" firstAttribute="trailing" secondItem="nMa-fl-gGY" secondAttribute="trailing" id="Zhr-WX-STZ"/>
+                            <constraint firstAttribute="bottom" secondItem="KbV-20-5O9" secondAttribute="bottom" constant="138" id="dhf-H2-JLs"/>
+                            <constraint firstItem="OVs-rn-lAQ" firstAttribute="leading" secondItem="nMa-fl-gGY" secondAttribute="leading" id="fC9-kZ-AzU"/>
+                            <constraint firstItem="Gl3-L7-cAt" firstAttribute="centerX" secondItem="gCG-iQ-kSI" secondAttribute="centerX" id="jip-DP-xNu"/>
+                            <constraint firstItem="nMa-fl-gGY" firstAttribute="top" secondItem="gCG-iQ-kSI" secondAttribute="bottom" constant="6" id="lao-67-v7R"/>
+                            <constraint firstItem="Gl3-L7-cAt" firstAttribute="width" secondItem="KbV-20-5O9" secondAttribute="height" multiplier="143:17" id="qph-Gh-rSa"/>
+                            <constraint firstItem="OVs-rn-lAQ" firstAttribute="trailing" secondItem="gCG-iQ-kSI" secondAttribute="trailing" id="wIT-rO-SY4"/>
+                            <constraint firstItem="OVs-rn-lAQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="y15-g4-2QM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="bottomTextField" destination="KbV-20-5O9" id="EtT-44-nbt"/>
                         <outlet property="bottomToolbar" destination="nMa-fl-gGY" id="SOh-LX-hFU"/>
+                        <outlet property="cameraButton" destination="FxJ-FM-faC" id="HPM-vg-vgI"/>
+                        <outlet property="cancelButton" destination="Sgb-sT-rvQ" id="cfP-Nw-c7b"/>
                         <outlet property="imagePickerView" destination="gCG-iQ-kSI" id="yJJ-sh-vvc"/>
+                        <outlet property="shareButton" destination="53O-ha-JKr" id="ksa-Ok-ihs"/>
                         <outlet property="topTextField" destination="Gl3-L7-cAt" id="eGg-es-jIp"/>
                         <outlet property="topToolbar" destination="OVs-rn-lAQ" id="mqm-Sp-Ehz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.27678571428569" y="137.68115942028987"/>
+            <point key="canvasLocation" x="136.23188405797103" y="137.27678571428569"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera" catalog="system" width="64" height="48"/>
+        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
     </resources>
 </document>

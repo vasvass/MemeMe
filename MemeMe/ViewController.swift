@@ -15,80 +15,75 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 	@IBOutlet weak var bottomTextField: UITextField!
 	@IBOutlet weak var topToolbar: UIToolbar!
 	@IBOutlet weak var bottomToolbar: UIToolbar!
-	
-	
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cameraButton: UIBarButtonItem!
+    
 	let imagePicker = UIImagePickerController()
     
-    /* Add viewWillAppear
-       - Check Camera
-       - Adjust Keyboard (subscribe to Keyboard)
-	*/
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
     
-    /* Add viewWillDisapear
-       - Adjust Keyboard (unsuscribe from keyboard)
-    */
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeToKeyboardNotifications()
+    }
+     
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		imagePicker.delegate = self
 		constructTextField(textField: topTextField, withText: "TOP TEXT")
 		constructTextField(textField: bottomTextField, withText: "BOTTOM TEXT")
+       
 	}
 	
     //MARK: - Adjusting Keyboard
     
     func subscribeToKeyboardNotifications() {
         
-        // Keyboard adjustment based on notification call, both when called and dismissed
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     func unsubscribeToKeyboardNotifications() {
         
-        // Keyboard adjustment on dismiss
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
         
-        // Adjustment to the frame on entry to the UITextfield and specifically for the bottom UITexfield
-        if bottomTextField.isEditing{
+        if bottomTextField.isEditing {
             view.frame.origin.y -= getKeyboardHeight(notification)
-            
         }
         
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
            
-           // Adjustment of the frame back to the original state
            view.frame.origin.y = 0
-           
        }
        
        func getKeyboardHeight(_ notification:Notification) -> CGFloat {
            
-           // Function which returns the height of the keyboard
            let userInfo = notification.userInfo
            let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
            return keyboardSize.cgRectValue.height
-           
        }
     
 	// MARK: User select image from library
     
 	@IBAction func pickAnImageFromAlbum(_ sender: Any) {
+        
 		imagePicker.delegate = self
 		imagePicker.sourceType = .photoLibrary
 		
 		present(imagePicker, animated: true, completion: nil)
 	}
     
-    // MARK: User select image from camera
+    // MARK: User selects image from camera
 	
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
          
@@ -101,9 +96,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-	// MARK: User select image from album
+	// MARK: User selects image from album
 	
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
 		if let imagePicked = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imagePickerView.contentMode = .scaleAspectFill
             imagePickerView.image = imagePicked
@@ -112,11 +108,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 	}
 	
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
 		dismiss(animated: true, completion: nil
 	)
 	}
 	
     func constructTextField(textField: UITextField, withText text: String) {
+        
         textField.text = text
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = NSTextAlignment.center
@@ -130,8 +128,76 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 		NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
 		NSAttributedString.Key.strokeWidth: NSNumber(value: -3.0 as Float)
 	]
-	 
-	
-	
+    
+    // MARK: Editinbg TextFields
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) { // clear the default text
+           if (topTextField == textField && topTextField.text == "TOP TEXT") {
+               topTextField.text = ""
+           }
+           if (bottomTextField == textField && bottomTextField.text == "BOTTOM TEXT") {
+               bottomTextField.text = ""
+           }
+       }
+       
+       func textFieldDidEndEditing(_ textField: UITextField) {
+             if (topTextField.text != "TOP TEXT") && (bottomTextField.text != "BOTTOM TEXT" ) {
+                 topTextField.isEnabled = true
+                 bottomTextField.isEnabled = true
+             }
+         }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool { 
+         textField.resignFirstResponder()
+     }
+    
+    struct Meme {
+        var topText: String
+        var bottomText: String
+        var originalImage: UIImage
+        var memedImage: UIImage
+    }
+    
+    func save() {
+        // Create the meme
+        _ = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
+    }
+    
+    func generateMemedImage() -> UIImage {
+
+        hideTopAndBottomToolbars(true)
+
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        hideTopAndBottomToolbars(false)
+
+        return memedImage
+    }
+    
+    // MARK: Hiding the top and bottom toolbars
+    func hideTopAndBottomToolbars(_ hide: Bool) {
+        bottomToolbar.isHidden=hide
+        topToolbar.isHidden=hide
+    }
+    
+    // MARK: When cancel button is pressed values return to default
+    func cancel(){
+        topTextField.text="TOP TEXT"
+        bottomTextField.text="BOTTOM TEXT"
+        imagePickerView!.image=nil
+        shareButton.isEnabled=true
+        topTextField.isEnabled = true
+        bottomTextField.isEnabled = true
+       // topTextField.alpha = 0.5
+       // bottomTextField.alpha = 0.5
+    }
+
+    @IBAction func cancelEditing(_ sender: Any) {
+        cancel()
+    }
 }
 
