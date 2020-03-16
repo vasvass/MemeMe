@@ -92,11 +92,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
         } else {
-         print("Camera not available on the device!")
+            cameraButton.isEnabled = false
         }
     }
     
-	// MARK: User selects image from album
+    // MARK: User selects image from album
 	
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -107,12 +107,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 	 dismiss(animated: true, completion: nil)
 	}
 	
-	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+	  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
-		dismiss(animated: true, completion: nil
-	)
-	}
+		dismiss(animated: true, completion: nil)
+	 }
 	
+    // MARK: Textfields construction
+    
     func constructTextField(textField: UITextField, withText text: String) {
         
         textField.text = text
@@ -131,7 +132,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Editinbg TextFields
     
-    func textFieldDidBeginEditing(_ textField: UITextField) { // clear the default text
+    func textFieldDidBeginEditing(_ textField: UITextField) {
            if (topTextField == textField && topTextField.text == "TOP TEXT") {
                topTextField.text = ""
            }
@@ -158,8 +159,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         var memedImage: UIImage
     }
     
+     // MARK: Creatio of a Meme
+     
     func save() {
-        // Create the meme
         _ = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
     }
     
@@ -178,13 +180,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
+    // MARK: Saving and sharing the created Meme
+    
+    @IBAction func shareButton(_ sender: Any) {
+              
+               let vccontroller = UIActivityViewController(activityItems: [generateMemedImage()], applicationActivities: nil)
+               
+               present(vccontroller, animated: true, completion: nil)
+               
+               vccontroller.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+                   if completed == true {
+                       self.save()
+                       
+     
+                       self.presentingViewController?.dismiss(animated: true, completion: nil)
+                       
+                   }
+                   
+               }
+    }
+    
     // MARK: Hiding the top and bottom toolbars
+    
     func hideTopAndBottomToolbars(_ hide: Bool) {
         bottomToolbar.isHidden=hide
         topToolbar.isHidden=hide
     }
     
     // MARK: When cancel button is pressed values return to default
+    
     func cancel(){
         topTextField.text="TOP TEXT"
         bottomTextField.text="BOTTOM TEXT"
@@ -192,9 +216,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         shareButton.isEnabled=true
         topTextField.isEnabled = true
         bottomTextField.isEnabled = true
-       // topTextField.alpha = 0.5
-       // bottomTextField.alpha = 0.5
-    }
+     }
 
     @IBAction func cancelEditing(_ sender: Any) {
         cancel()

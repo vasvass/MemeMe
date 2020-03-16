@@ -22,7 +22,11 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OVs-rn-lAQ" userLabel="Top Toolbar">
                                 <rect key="frame" x="0.0" y="37" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="53O-ha-JKr" userLabel="Share Button Item"/>
+                                    <barButtonItem title="Item" image="square.and.arrow.up" catalog="system" id="53O-ha-JKr" userLabel="Share Button Item">
+                                        <connections>
+                                            <action selector="shareButton:" destination="BYZ-38-t0r" id="sCk-Yj-M0Z"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="B68-FN-KbV"/>
                                     <barButtonItem style="plain" id="Sgb-sT-rvQ">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6qu-oE-dVJ">
