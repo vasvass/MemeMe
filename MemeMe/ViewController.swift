@@ -36,8 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 		imagePicker.delegate = self
 		constructTextField(textField: topTextField, withText: "TOP TEXT")
 		constructTextField(textField: bottomTextField, withText: "BOTTOM TEXT")
-       
-	}
+  	}
 	
     //MARK: - Adjusting Keyboard
     
@@ -188,8 +187,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                
                present(vccontroller, animated: true, completion: nil)
                
-               vccontroller.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
-                   if completed == true {
+               vccontroller.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, finished: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+                   if finished == true {
                        self.save()
                        
      
